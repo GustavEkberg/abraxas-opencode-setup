@@ -373,4 +373,9 @@ Before marking PRD ready for review and sharing with the user, verify:
 Tell the user:
 
 PRD saved to prd-<name>.md
+
+Then:
+1. Checkout branch `prd-<name>` (create if needed)
+2. Commit PRD file
+3. Push to origin: `git push -u origin prd-<name>`
 ```

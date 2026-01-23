@@ -194,6 +194,7 @@ This will:
 2. Choose a task to implement
 3. Implement until all verification steps pass
 4. Commit and update progress
+5. Push changes
 ```
 
 ## Example
