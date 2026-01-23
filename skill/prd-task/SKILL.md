@@ -22,6 +22,7 @@ Based on [Anthropic's research on long-running agents](https://www.anthropic.com
 7. Create empty `.opencode/state/<prd-name>/progress.txt`
 
 State folder structure:
+
 ```
 .opencode/state/<prd-name>/
 ├── prd.md       # Original markdown PRD (moved from project root)
@@ -37,6 +38,7 @@ Expects markdown PRD with end-state focus:
 # PRD: <Feature Name>
 
 ## End State
+
 - [ ] Users can register
 - [ ] Users can log in
 - [ ] Auth is secure
@@ -44,18 +46,22 @@ Expects markdown PRD with end-state focus:
 ## Tasks
 
 ### User Registration [functional]
+
 User can register with email and password.
 
 **Verification:**
+
 - POST /api/auth/register with valid email/password
 - Verify 201 response with user object
 - Verify password not in response
 - Attempt duplicate email, verify 409
 
 ### User Login [functional]
+
 User can log in and receive JWT token.
 
 **Verification:**
+
 - POST /api/auth/login with valid credentials
 - Verify 200 response with token
 - Attempt invalid credentials, verify 401
@@ -63,12 +69,15 @@ User can log in and receive JWT token.
 ## Context
 
 ### Patterns
+
 - API routes: `src/routes/items.ts`
 
 ### Key Files
+
 - `src/db/schema.ts`
 
 ### Non-Goals
+
 - OAuth/social login
 - Password reset
 ```
@@ -76,6 +85,7 @@ User can log in and receive JWT token.
 ## Output Format
 
 Move PRD and generate JSON in `.opencode/state/<prd-name>/`:
+
 - `prd.md` - Original markdown (moved from source location)
 - `prd.json` - Converted JSON:
 
@@ -108,13 +118,13 @@ Move PRD and generate JSON in `.opencode/state/<prd-name>/`:
 
 ### Task Object
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | Unique identifier, e.g. "db-1", "api-auth", "setup-deps" |
-| `category` | string | Grouping: "functional", "ui", "api", "security", "testing", etc. |
-| `description` | string | What the task does when complete |
-| `steps` | string[] | **Verification steps** - how to test it works |
-| `passes` | boolean | Set to `true` when ALL steps verified |
+| Field         | Type     | Description                                                      |
+| ------------- | -------- | ---------------------------------------------------------------- |
+| `id`          | string   | Unique identifier, e.g. "db-1", "api-auth", "setup-deps"         |
+| `category`    | string   | Grouping: "functional", "ui", "api", "security", "testing", etc. |
+| `description` | string   | What the task does when complete                                 |
+| `steps`       | string[] | **Verification steps** - how to test it works                    |
+| `passes`      | boolean  | Set to `true` when ALL steps verified                            |
 
 ### Key Points
 
@@ -137,6 +147,7 @@ Keep tasks small and focused:
 Quality over speed. Small steps compound into big progress.
 
 ### Tasks from Markdown
+
 - Each `### Title [category]` becomes a task
 - Generate `id` as `<category>-<number>` (e.g., "db-1", "api-2") or descriptive slug
 - Text after title is the `description`
@@ -145,6 +156,7 @@ Quality over speed. Small steps compound into big progress.
 - **Split large sections** into multiple focused tasks
 
 ### Context Preserved
+
 - `context.patterns` - existing code patterns to follow
 - `context.keyFiles` - files to explore first
 - `context.nonGoals` - explicit scope boundaries
@@ -160,6 +172,7 @@ Fight entropy. Leave the codebase better than you found it.
 ## Field Rules
 
 **READ-ONLY except:**
+
 - `passes`: Set to `true` when ALL verification steps pass
 
 **NEVER edit or remove tasks** - This could lead to missing functionality.
@@ -167,6 +180,7 @@ Fight entropy. Leave the codebase better than you found it.
 ## PRD Name
 
 Derive from PRD title:
+
 - `# PRD: User Authentication` -> `"prdName": "user-authentication"`
 
 ## After Conversion
@@ -174,6 +188,7 @@ Derive from PRD title:
 1. Checkout branch `prd-<prd-name>` (create if needed)
 2. Commit PRD files
 3. Push to origin: `git push -u origin prd-<prd-name>`
+4. Load and execute the `/send-prd-webhook` skill
 
 Tell the user:
 
@@ -209,6 +224,7 @@ This will:
 # PRD: User Favorites
 
 ## End State
+
 - [ ] Users can favorite items
 - [ ] Favorites persist
 - [ ] Users can list favorites
@@ -216,17 +232,21 @@ This will:
 ## Tasks
 
 ### Favorites Storage [db]
+
 Database table for storing favorites.
 
 **Verification:**
+
 - Favorites table exists with userId, itemId, createdAt
 - Unique constraint prevents duplicates
 - Foreign keys reference users and items tables
 
 ### Add Favorite [api]
+
 User can add an item to favorites.
 
 **Verification:**
+
 - POST /api/favorites with itemId
 - Verify 201 response
 - Verify item appears in database
@@ -234,9 +254,11 @@ User can add an item to favorites.
 - Attempt without auth, verify 401
 
 ### List Favorites [api]
+
 User can retrieve their favorites.
 
 **Verification:**
+
 - GET /api/favorites returns array
 - Results are paginated (20 per page)
 - Results sorted by createdAt desc
@@ -245,13 +267,16 @@ User can retrieve their favorites.
 ## Context
 
 ### Patterns
+
 - API routes: `src/routes/items.ts`
 - Auth middleware: `src/middleware/auth.ts`
 
 ### Key Files
+
 - `src/db/schema.ts`
 
 ### Non-Goals
+
 - Favorite folders
 - Sharing favorites
 ```
