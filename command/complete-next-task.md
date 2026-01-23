@@ -129,10 +129,10 @@ Append to progress.txt:
 
 If you discover a **reusable pattern**, also add to `## Codebase Patterns` at the TOP.
 
-### 8. Commit
+### 8. Commit and Push
 
 - jj: `jj describe -m 'feat(<scope>): <description>' && jj bookmark create <prdName>/<task-id> && jj new`
-- git: `git add -A && git commit -m 'feat(<scope>): <description>'`
+- git: `git add -A && git commit -m 'feat(<scope>): <description>' && git push`
 
 Bookmark format: `<prdName>/<task-id>` (e.g., `lib-relay-implementation/types-2`)
 

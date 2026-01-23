@@ -171,6 +171,10 @@ Derive from PRD title:
 
 ## After Conversion
 
+1. Checkout branch `prd-<prd-name>` (create if needed)
+2. Commit PRD files
+3. Push to origin: `git push -u origin prd-<prd-name>`
+
 Tell the user:
 
 ```
