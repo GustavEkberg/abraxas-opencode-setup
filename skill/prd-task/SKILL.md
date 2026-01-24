@@ -188,7 +188,6 @@ Derive from PRD title:
 1. Checkout branch `prd-<prd-name>` (create if needed)
 2. Commit PRD files
 3. Push to origin: `git push -u origin prd-<prd-name>`
-4. Load and execute the `/send-prd-webhook` skill
 
 Tell the user:
 
