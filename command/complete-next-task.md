@@ -93,8 +93,8 @@ Started: <YYYY-MM-DD>
 
 Extract `prdName` from PRD, then:
 
-- jj: `jj new -m '<prdName>'`
-- git: `git checkout -b <prdName>` (or checkout if exists)
+- jj: `jj new -m 'manifest-<prdName>'`
+- git: `git checkout -b manifest-<prdName>` (or checkout if exists)
 
 ### 4. Implement Task
 
@@ -131,10 +131,10 @@ If you discover a **reusable pattern**, also add to `## Codebase Patterns` at th
 
 ### 8. Commit and Push
 
-- jj: `jj describe -m 'feat(<scope>): <description>' && jj bookmark create <prdName>/<task-id> && jj new`
+- jj: `jj describe -m 'feat(<scope>): <description>' && jj bookmark create manifest-<prdName>/<task-id> && jj new`
 - git: `git add -A && git commit -m 'feat(<scope>): <description>' && git push`
 
-Bookmark format: `<prdName>/<task-id>` (e.g., `lib-relay-implementation/types-2`)
+Bookmark format: `manifest-<prdName>/<task-id>` (e.g., `manifest-lib-relay-implementation/types-2`)
 
 ## Completion
 
