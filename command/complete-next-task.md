@@ -129,12 +129,47 @@ Append to progress.txt:
 
 If you discover a **reusable pattern**, also add to `## Codebase Patterns` at the TOP.
 
-### 8. Commit and Push
+### 8. Commit
 
-- jj: `jj describe -m 'feat(<scope>): <description>' && jj bookmark create manifest-<prdName>/<task-id> && jj new`
-- git: `git add -A && git commit -m 'feat(<scope>): <description>' && git push`
+Create a commit with a descriptive message:
+
+- jj: `jj describe -m 'feat(<scope>): <description>'`
+- git: `git add -A && git commit -m 'feat(<scope>): <description>'`
+
+### 9. Create Bookmark/Branch Marker
+
+Track progress with a bookmark at this commit:
+
+- jj: `jj bookmark create manifest-<prdName>/<task-id>`
+- git: (branch already tracks commits)
 
 Bookmark format: `manifest-<prdName>/<task-id>` (e.g., `manifest-lib-relay-implementation/types-2`)
+
+### 10. Push to Remote (REQUIRED)
+
+**CRITICAL**: Always push after committing. Do not skip this step.
+
+- jj: `jj git push --bookmark manifest-<prdName>/<task-id>`
+- git: `git push -u origin HEAD`
+
+If push fails, diagnose and fix before proceeding. Common issues:
+- No remote configured: `git remote add origin <url>` or `jj git remote add origin <url>`
+- Auth issues: check SSH keys or credentials
+- Conflicts: pull/rebase first
+
+### 11. Prepare for Next Task (jj only)
+
+- jj: `jj new` (creates fresh working copy for next task)
+
+## Verification Checklist
+
+Before reporting task complete, verify:
+
+- [ ] All feedback loops pass (types, tests, lint, format)
+- [ ] PRD updated with `passes: true`
+- [ ] Progress file updated
+- [ ] Commit created with descriptive message
+- [ ] **Pushed to remote** (confirm with `jj git push` status or `git push` output)
 
 ## Completion
 
